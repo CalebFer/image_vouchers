@@ -20,6 +20,7 @@ export default {
       datos: [],
       images: [],
       //fecha: "2024-02-01",
+      
       //page: 1,
     };
   },
