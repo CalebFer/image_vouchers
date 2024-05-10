@@ -1,58 +1,82 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Imagenes</h5>
+            <p class="card-text">total de paginas:{{ datos.total_pages }}</p>
+            <p class="card-text">total de imagenes: {{ datos.total_count }}</p>
+            <!-- //crea un boton para descargar las imagenes con su icono de imagen -->
+            <a href="#" class="btn btn-primary">
+              <i class="fas fa-download"></i> Ir a descargar</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">PDF's</h5>
+            <p class="card-text">
+              total de paginas:{{ datos.total_pages_pdf }}
+            </p>
+            <p class="card-text">total de pdf's: {{ datos.total_count_pdf }}</p>
+            <!-- //crea un boton para descargar los pdf's con su icono de pdf -->
+            <a href="#" class="btn btn-danger">
+              <i class="fas fa-file-pdf"></i> Ir a descargar</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <img :src="'https://sistemas.cepreuna.edu.pe/storage/vouchers/' + images[4]?.voucher" alt="">
+    <pre>{{ images[2]?.voucher }}</pre>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
-    msg: String
-  }
-}
+    msg: String,
+  },
+  data() {
+    return {
+      datos: [],
+      images: [],
+      pdfs: [],
+      totalImages: 0,
+      totalPdfs: 0,
+    };
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      try {
+        const response = await fetch(
+          "https://sistemas.cepreuna.edu.pe/api/v1/pagos/grupos/2024-02-01/1",
+          {
+            headers: {
+              Authorization: "cepreuna_v1_api",
+            },
+          }
+        );
+        const data = await response.json();
+        console.log("Data fetched:", data);
+        this.datos = data;
+        this.images = data.results;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    },
+    getImageCount() {},
+    getPdfCount() {
+      // logic to get the total number of pdfs
+      // return the count
+    },
+  },
+};
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
