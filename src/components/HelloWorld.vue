@@ -1,5 +1,6 @@
 <template>
-  <div class="hello">
+  <div class="hello text-center">
+    <h1>Imagenes y Pdf's</h1>
     <div class="row">
       <div class="col-md-6">
         <div class="card">
@@ -8,8 +9,8 @@
             <p class="card-text">total de paginas:{{ datos.total_pages }}</p>
             <p class="card-text">total de imagenes: {{ datos.total_count }}</p>
             <!-- //crea un boton para descargar las imagenes con su icono de imagen -->
-            <a href="#" class="btn btn-primary">
-              <i class="fas fa-download"></i> Ir a descargar</a
+            <router-link to="/imagenes/2024-02-01/01" class="btn btn-primary">
+              <i class="fas fa-download"></i> Ir a imagenes</router-link
             >
           </div>
         </div>
@@ -23,15 +24,28 @@
             </p>
             <p class="card-text">total de pdf's: {{ datos.total_count_pdf }}</p>
             <!-- //crea un boton para descargar los pdf's con su icono de pdf -->
-            <a href="#" class="btn btn-danger">
-              <i class="fas fa-file-pdf"></i> Ir a descargar</a
+            <router-link to="/pdf/2024-02-01/01" class="btn btn-danger">
+              <i class="fas fa-file-pdf"></i> Ir a pdf's</router-link
             >
           </div>
         </div>
       </div>
     </div>
-    <img :src="'https://sistemas.cepreuna.edu.pe/storage/vouchers/' + images[4]?.voucher" alt="">
-    <pre>{{ images[2]?.voucher }}</pre>
+    <div style="position:relative">
+      <div style="position: absolute; top:5px; left:5px;background: white; font-weight: bold">
+        <div>hola</div>
+      </div>
+      <img
+        :src="
+          'https://sistemas.cepreuna.edu.pe/storage/vouchers/' +
+          images[4]?.voucher
+        "
+        alt=""
+      />
+    </div>
+    <!-- <embed :src="'https://sistemas.cepreuna.edu.pe/storage/vouchers/' + pdfs[11]?.voucher" type="application/pdf" width="100%" height="375px" /> -->
+    <!-- <pre>{{ images[2]?.voucher }}</pre> -->
+    <!-- <pre>{{ pdf[2]?.voucher }}</pre> -->
   </div>
 </template>
 
@@ -65,9 +79,10 @@ export default {
           }
         );
         const data = await response.json();
-        console.log("Data fetched:", data);
+        // console.log("Data fetched:", data);
         this.datos = data;
         this.images = data.results;
+        this.pdfs = data.results_pdf;
       } catch (error) {
         console.error("Error fetching data:", error);
       }

@@ -1,13 +1,17 @@
 <template>
-  <div>
+  <div v-for="(image, index) in images" :key="index" style="display: inline-block; width:49%;position:relative">
+    <div style="position: absolute; top:5px; left:5px;background: white; font-weight: bold; font-size:8px">
+        {{fecha+"/"+page+"  " + image.dni + " - " + image.fecha }}
+    </div>
     <img
-      v-for="(image, index) in images"
-      :key="index"
       :src="
         'https://sistemas.cepreuna.edu.pe/storage/vouchers/' + image.voucher
       "
       alt=""
+      width="100%"
+      height="375px"
     />
+    
     <!-- <pre>{{ images }}</pre> -->
   </div>
 </template>
@@ -39,7 +43,7 @@ export default {
           }
         );
         const data = await response.json();
-        console.log("Data fetched:", data);
+        // console.log("Data fetched:", data);
         this.datos = data;
         this.images = data.results;
       } catch (error) {
@@ -52,8 +56,8 @@ export default {
 <style scoped>
 img {
   border: 1px solid black;
-  width: 49%;
-  height: 375px;
+  /* width: 49%; */
+  /* height: 375px; */
   object-fit: cover;
   object-position: 50% 35%;
 }

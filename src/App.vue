@@ -1,6 +1,8 @@
 <template>
   <div>
     <router-view></router-view>
+    <!-- quiero rediccionar a  -->
+    <!-- <hello-world msg="Welcome to Your Vue.js App" /> -->
   </div>
 </template>
 
