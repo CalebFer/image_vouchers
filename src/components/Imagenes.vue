@@ -1,7 +1,20 @@
 <template>
-  <div v-for="(image, index) in images" :key="index" style="display: inline-block; width:49%;position:relative">
-    <div style="position: absolute; top:5px; left:5px;background: white; font-weight: bold; font-size:8px">
-        {{fecha+"/"+page+"  " + image.dni + " - " + image.fecha }}
+  <div
+    v-for="(image, index) in images"
+    :key="index"
+    style="display: inline-block; width: 49%; position: relative"
+  >
+    <div
+      style="
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        background: white;
+        font-weight: bold;
+        font-size: 12px;
+      "
+    >
+      {{ fecha + "/" + page + "  " + image.nro_documento + " - " + image.fecha + " ("+image.secuencia+") "+ "___ " + image.monto }}
     </div>
     <img
       :src="
@@ -11,20 +24,20 @@
       width="100%"
       height="375px"
     />
-    
+
     <!-- <pre>{{ images }}</pre> -->
   </div>
 </template>
 <script>
 export default {
-    name: "ImagenesComponent",
-  props: ['fecha', 'page'],
+  name: "ImagenesComponent",
+  props: ["fecha", "page"],
   data() {
     return {
       datos: [],
       images: [],
       //fecha: "2024-02-01",
-      
+
       //page: 1,
     };
   },
@@ -43,7 +56,7 @@ export default {
           }
         );
         const data = await response.json();
-        // console.log("Data fetched:", data);
+        console.log("Data fetched:", data);
         this.datos = data;
         this.images = data.results;
       } catch (error) {

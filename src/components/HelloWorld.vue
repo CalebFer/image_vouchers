@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div style="position:relative">
+    <!-- <div style="position:relative">
       <div style="position: absolute; top:5px; left:5px;background: white; font-weight: bold">
         <div>hola</div>
       </div>
@@ -42,7 +42,7 @@
         "
         alt=""
       />
-    </div>
+    </div> -->
     <!-- <embed :src="'https://sistemas.cepreuna.edu.pe/storage/vouchers/' + pdfs[11]?.voucher" type="application/pdf" width="100%" height="375px" /> -->
     <!-- <pre>{{ images[2]?.voucher }}</pre> -->
     <!-- <pre>{{ pdf[2]?.voucher }}</pre> -->

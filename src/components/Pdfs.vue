@@ -89,7 +89,7 @@ export default {
         const firstPage = pages[0];
         // const { PDFPageDrawTextOptions } = require('pdf-lib');
         firstPage.drawText(
-          `${this.fecha}/${this.page}------${this.images[i].dni}-------Fecha_pago: ${this.images[i].fecha}`,
+          `${this.fecha}/${this.page}------${this.images[i].nro_documento}-------Fecha_pago: ${this.images[i].fecha} - (${this.images[i].secuencia}) - ${this.images[i].monto}`,
           { x: 5, y: 5, size: 12 }
         );
         // loop through the pages
