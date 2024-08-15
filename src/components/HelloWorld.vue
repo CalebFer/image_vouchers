@@ -9,7 +9,7 @@
             <p class="card-text">total de paginas:{{ datos.total_pages }}</p>
             <p class="card-text">total de imagenes: {{ datos.total_count }}</p>
             <!-- //crea un boton para descargar las imagenes con su icono de imagen -->
-            <router-link to="/imagenes/2024-02-01/01" class="btn btn-primary">
+            <router-link to="/imagenes/2024-08-14/01" class="btn btn-primary">
               <i class="fas fa-download"></i> Ir a imagenes</router-link
             >
           </div>
@@ -24,7 +24,7 @@
             </p>
             <p class="card-text">total de pdf's: {{ datos.total_count_pdf }}</p>
             <!-- //crea un boton para descargar los pdf's con su icono de pdf -->
-            <router-link to="/pdf/2024-02-01/01" class="btn btn-danger">
+            <router-link to="/pdf/2024-08-14/01" class="btn btn-danger">
               <i class="fas fa-file-pdf"></i> Ir a pdf's</router-link
             >
           </div>
@@ -71,8 +71,8 @@ export default {
     async fetchData() {
       try {
         const response = await fetch(
-          "https://sistemas.cepreuna.edu.pe/api/v1/pagos/grupos/2024-02-01/1",
-          {
+          "https://sistemas.cepreuna.edu.pe/api/v1/pagos/grupos/2024-08-14/1",
+          { 
             headers: {
               Authorization: "cepreuna_v1_api",
             },
