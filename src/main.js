@@ -4,6 +4,8 @@ import App from './App.vue'
 import HelloWorld from './components/HelloWorld.vue'
 import Imagenes from './components/Imagenes.vue'
 import Pdfs from './components/Pdfs.vue'
+import ImgDevolucion from './components/ImgDevolucion.vue'
+import PdfsDevolucion from './components/PdfsDevolucion.vue'
 
 // Importa los componentes para las rutas
 // import Home from './components/Home.vue'
@@ -18,6 +20,17 @@ const routes = [
         props: true
     },
     { path: '/pdf/:fecha/:page', component: Pdfs, props: true },
+    {
+      path: '/imgdevolucion/:fecha/:page',
+      component: ImgDevolucion,
+      props: true
+    },
+    {
+      path: '/pdfdevolucion/:fecha/:page',
+      component: PdfsDevolucion,
+      props: true
+    }
+
 ]
 
 // Crea el enrutador

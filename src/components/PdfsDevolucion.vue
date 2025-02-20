@@ -63,7 +63,7 @@ export default {
         const data = response.data;
         // console.log("Data fetched:", data);
         this.datos = data;
-        this.images = data.results_pdf;
+        this.images = data.results_devolcion_pdf;
       } catch (error) {
         console.error("Error fetching data:", error);
       }

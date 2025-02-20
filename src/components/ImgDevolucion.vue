@@ -71,7 +71,7 @@ export default {
         const data = await response.json();
         console.log("Data fetched:", data);
         this.datos = data;
-        this.images = data.results;
+        this.images = data.results_devolucion;
       } catch (error) {
         console.error("Error fetching data:", error);
       }

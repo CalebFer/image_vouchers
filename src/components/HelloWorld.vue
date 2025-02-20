@@ -15,6 +15,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
@@ -25,6 +26,48 @@
             <p class="card-text">total de pdf's: {{ datos.total_count_pdf }}</p>
             <!-- //crea un boton para descargar los pdf's con su icono de pdf -->
             <router-link to="/pdf/2024-02-01/01" class="btn btn-danger">
+              <i class="fas fa-file-pdf"></i> Ir a pdf's</router-link
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Devolucion Img's</h5>
+            <p class="card-text">
+              total de paginas:{{ datos.total_pages_devolucion }}
+            </p>
+            <p class="card-text">
+              total de imagenes: {{ datos.total_count_devolucion }}
+            </p>
+            <!-- //crea un boton para descargar las imagenes con su icono de imagen -->
+            <router-link
+              to="/imgdevolucion/2024-02-01/01"
+              class="btn btn-primary"
+            >
+              <i class="fas fa-download"></i> Ir a imagenes</router-link
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Devolucion PDF's</h5>
+            <p class="card-text">
+              total de paginas:{{ datos.total_pages_devolucion_pdf }}
+            </p>
+            <p class="card-text">
+              total de pdf's: {{ datos.total_count_devolucion_pdf }}
+            </p>
+            <!-- //crea un boton para descargar los pdf's con su icono de pdf -->
+            <router-link
+              to="/pdfdevolucion/2024-02-01/01"
+              class="btn btn-danger"
+            >
               <i class="fas fa-file-pdf"></i> Ir a pdf's</router-link
             >
           </div>
@@ -79,7 +122,7 @@ export default {
           }
         );
         const data = await response.json();
-        // console.log("Data fetched:", data);
+        console.log("Data fetched:", data);
         this.datos = data;
         this.images = data.results;
         this.pdfs = data.results_pdf;
