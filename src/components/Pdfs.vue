@@ -14,7 +14,7 @@
       </button>
       <div class="progress-bar-container mx-auto">
         <div class="progress-bar" :style="{ width: progress + '%' }">
-          {{ progress + 1.25 + "%" }}
+          {{ progress.toFixed(2) + "%" }}
         </div>
       </div>
     </div>
@@ -75,30 +75,45 @@ export default {
 
       // loop through the pdfs
       for (let i = 0; i < this.images.length; i++) {
-        // update the progress bar
-        this.progress = (i / this.images.length) * 100;
-        // fetch the pdf
-        const pdfBytes = await axios
-          .get(`/proxy/${this.images[i].voucher}`, {
-            responseType: "arraybuffer",
-          })
-          .then((res) => res.data);
-        // load the pdf
-        const loadedPdf = await PDFDocument.load(pdfBytes);
-        const pages = loadedPdf.getPages();
-        const firstPage = pages[0];
-        // const { PDFPageDrawTextOptions } = require('pdf-lib');
-        firstPage.drawText(
-          `${this.fecha}/${this.page}------${this.images[i].nro_documento}-------Fecha_pago: ${this.images[i].fecha} - (${this.images[i].secuencia}) - ${this.images[i].monto}`,
-          { x: 5, y: 5, size: 12 }
-        );
-        // loop through the pages
-        for (let j = 0; j < loadedPdf.getPageCount(); j++) {
-          // add the page to the combined pdf
-          const [copiedPage] = await pdfDoc.copyPages(loadedPdf, [j]);
-          pdfDoc.addPage(copiedPage);
-        }
-      }
+  try {
+    // Actualizar la barra de progreso
+    this.progress = ((i + 1) / this.images.length) * 100;
+
+    // Obtener el PDF
+    const response = await axios.get(`/proxy/${this.images[i].voucher}`, {
+      responseType: "arraybuffer",
+    });
+
+    const pdfBytes = response.data;
+
+    // Verificar si el archivo es un PDF válido
+    const header = new TextDecoder("utf-8").decode(pdfBytes.slice(0, 8));
+    if (!header.startsWith("%PDF-")) {
+      console.error(`El archivo ${i + 1} no es un PDF válido. Se omitirá.`);
+      continue; // Omitir este archivo y continuar con el siguiente
+    }
+
+    // Cargar el PDF
+    const loadedPdf = await PDFDocument.load(pdfBytes, { ignoreEncryption: true });
+
+    // Agregar texto a la primera página
+    const pages = loadedPdf.getPages();
+    const firstPage = pages[0];
+    firstPage.drawText(
+      `${this.fecha}/${this.page}------${this.images[i].nro_documento}-------Fecha_pago: ${this.images[i].fecha} - (${this.images[i].secuencia}) - ${this.images[i].monto}`,
+      { x: 5, y: 5, size: 12 }
+    );
+
+    // Copiar páginas al PDF combinado
+    for (let j = 0; j < loadedPdf.getPageCount(); j++) {
+      const [copiedPage] = await pdfDoc.copyPages(loadedPdf, [j]);
+      pdfDoc.addPage(copiedPage);
+    }
+  } catch (error) {
+    console.error(`Error procesando el PDF ${i + 1}:`, error);
+    continue; // Omitir este archivo y continuar con el siguiente
+  }
+}
       //descargar en una nueva ruta el pdf
       const pdfBytes = await pdfDoc.save();
       const blob = new Blob([pdfBytes], { type: "application/pdf" });
